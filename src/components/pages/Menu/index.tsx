@@ -1,23 +1,25 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react';
+// import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import navigator from '../../../utils/navigator';
 import MenuWeek from '../../molecules/MenuWeek';
 import Navbar from '../../molecules/Navbar';
 import MenuCards from '../../organisms/MenuCards';
-import { requestMenu } from './requestMenu';
+// import { requestMenu } from './requestMenu';
 import {
   MenuCardsWrapper,
   MenuWeekWrapper,
   NavbarWrapper,
   StyledMenu,
 } from './styles';
-import { MenuTypes } from './types';
+// import { MenuTypes } from './types';
+import { MENU_OF_WEEK } from './data';
 
 const Menu = () => {
-  const { data: menuOfWeek } = useQuery<MenuTypes>(['requestMenuOfWeek'], () =>
-    requestMenu(),
-  );
+  // const { data: menuOfWeek } = useQuery<MenuTypes>(['requestMenuOfWeek'], () =>
+  //   requestMenu(),
+  // );
+  const [menuOfWeek] = useState(MENU_OF_WEEK);
 
   const navigate = useNavigate();
 
