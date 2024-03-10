@@ -25,17 +25,23 @@ const Board = () => {
   //   },
   // );
 
-  const [data,setData] = useState(BOARD_DATA);
-  const [isFetchingNextPage] = useState(false);
+  const [data, setData] = useState(BOARD_DATA);
+  const [index, setIndex] = useState(0);
+  const [isFetchingNextPage, setIsFetchingNextPage] = useState(false);
 
   useEffect(() => {
     if (inView) {
       //fetchNextPage();
-      setData((prev)=>{
-        return(
-          prev.pages.concat(FULL_BOARD_DATA[index].data);
-        )
-      })
+      setData((prev) => {
+        return {
+          ...prev,
+          pages: prev.pages.concat(FULL_BOARD_DATA[index]),
+        };
+      });
+      setIsFetchingNextPage(FULL_BOARD_DATA[index].last);
+      setIndex((prev) => {
+        return prev + 1;
+      });
     }
   }, [inView]);
 
@@ -79,9 +85,9 @@ const Board = () => {
         })}
       </PostsWrapper>
       {isFetchingNextPage ? (
-        <Text>Loading...</Text>
+        <Text>게시글의 끝입니다.</Text>
       ) : (
-        <div ref={ref}>게시글의 끝입니다.</div>
+        <div ref={ref}>Loading...</div>
       )}
       <StyledButtonWrapper>
         <AiFillEdit color={"#01a7eb"} size={25} onClick={clickAddPost} />
